@@ -8,12 +8,12 @@ rm(list=ls())
 # Load and prepare data #
 #########################
 
-pollution<-read.csv("C:\\Users\\wheel\\Desktop\\COVID-19 Twitter thread\\pollution.csv", header = TRUE)
+pollution<-read.csv("C:\\pollution.csv", header = TRUE)
 pollution<-pollution[,1:4]
 pollution<-pollution[1:7,]
-deaths<-read.csv("C:\\Users\\wheel\\Desktop\\COVID-19 Twitter thread\\deaths.csv", header = FALSE)
+deaths<-read.csv("C:\\deaths.csv", header = FALSE)
 cum_deaths<-deaths[,c(1,dim(deaths)[2])]
-cases<-read.csv("C:\\Users\\wheel\\Desktop\\COVID-19 Twitter thread\\cases.csv", header = TRUE, colClasses=c('character', 'character', 'character', 'character','numeric','numeric'))
+cases<-read.csv("C:\\cases.csv", header = TRUE, colClasses=c('character', 'character', 'character', 'character','numeric','numeric'))
 cases_region<-cases[-which(cases[,3]!="Region"),]
 cases_region_list<-lapply(unique(cases_region[,4]), function(z) cases_region[which(cases_region[,4] %in% z),])
 
@@ -36,7 +36,7 @@ cases_region_list[[index]] # Double-check date = 08/04/2020
 # Normality tests for data #
 ############################
 
-shapiro.test(as.numeric(cases_region_list[[12]][,3])) # Do not reject
+shapiro.test(as.numeric(cases_region_list[[index]][,3])) # Do not reject
 shapiro.test(cum_deaths[,2]) # # Do not reject
 shapiro.test(pollution[,2]) # # Do not reject
 shapiro.test(pollution[,3]) # REJECT NORMALITY
